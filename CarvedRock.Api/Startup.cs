@@ -27,7 +27,10 @@ namespace CarvedRock.Api
         {
             services.AddMvc();
             services.AddDbContext<CarvedRockDbContext>(options =>
-                options.UseSqlServer(_config["ConnectionStrings:CarvedRock"]));
+            {
+                options.UseSqlite("Data Source=app.db");
+            });
+                // options.UseSqlServer(_config["ConnectionStrings:CarvedRock"]));
             services.AddScoped<ProductRepository>();
 
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
