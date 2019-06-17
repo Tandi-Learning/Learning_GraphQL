@@ -44,6 +44,7 @@ namespace CarvedRock.Api
                 o.ExposeExceptions = false;
                 o.ExposeExceptions = true;
             })
+            .AddDataLoader()
             .AddWebSockets()
             .AddGraphTypes(ServiceLifetime.Scoped);
         }
