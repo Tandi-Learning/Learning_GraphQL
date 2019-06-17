@@ -3,7 +3,9 @@ using CarvedRock.Api.GraphQL;
 using CarvedRock.Api.Repositories;
 using GraphQL;
 using GraphQL.Server;
+using GraphQL.Server.Ui.GraphiQL;
 using GraphQL.Server.Ui.Playground;
+using GraphQL.Server.Ui.Voyager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -36,14 +38,35 @@ namespace CarvedRock.Api
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
             services.AddScoped<CarvedRockSchema>();
 
-            services.AddGraphQL(o => { o.ExposeExceptions = false; })
-                .AddGraphTypes(ServiceLifetime.Scoped);
+            services.AddGraphQL(o =>
+            {
+                o.ExposeExceptions = false;
+                o.ExposeExceptions = true;
+            })
+            .AddGraphTypes(ServiceLifetime.Scoped);
         }
 
         public void Configure(IApplicationBuilder app, CarvedRockDbContext dbContext)
         {
-            app.UseGraphQL<CarvedRockSchema>();
-            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
+            var graphqlEndpoint = "/graphql";
+
+            app.UseWebSockets();
+            app.UseGraphQLWebSockets<CarvedRockSchema>(graphqlEndpoint);
+            app.UseGraphQL<CarvedRockSchema>(graphqlEndpoint);
+            app.UseGraphiQLServer(new GraphiQLOptions
+            {
+                GraphiQLPath = "/graphiql",
+                GraphQLEndPoint = graphqlEndpoint
+            });
+            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions {
+                Path = "/playground",
+                GraphQLEndPoint = graphqlEndpoint
+            });
+            app.UseGraphQLVoyager(new GraphQLVoyagerOptions()
+            {
+                Path = "/voyager",
+                GraphQLEndPoint = graphqlEndpoint
+            });
             dbContext.Seed();
         }
     }
