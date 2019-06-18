@@ -46,7 +46,8 @@ namespace CarvedRock.Api
             })
             .AddDataLoader()
             .AddWebSockets()
-            .AddGraphTypes(ServiceLifetime.Scoped);
+            .AddGraphTypes(ServiceLifetime.Scoped)
+            .AddUserContextBuilder(httpContext => httpContext.User);
 
             services.AddCors();
         }

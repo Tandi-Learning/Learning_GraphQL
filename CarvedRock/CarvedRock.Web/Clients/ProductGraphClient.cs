@@ -33,7 +33,7 @@ namespace CarvedRock.Web.Clients
             return response.GetDataFieldAs<ProductModel>("product");
         }
 
-        public async Task AddReview(ProductReviewModel review)
+        public async Task<ProductReviewModel> AddReview(ProductReviewInputModel review)
         {
             var query = new GraphQLRequest
             {
@@ -48,7 +48,7 @@ namespace CarvedRock.Web.Clients
                 Variables = new { review }
             };
             var response = await _client.PostAsync(query);
-            var reviewReturned = response.GetDataFieldAs<ProductReviewModel>("createReview");
+            return response.GetDataFieldAs<ProductReviewModel>("createReview");
         }
 
         // public async Task SubscribeToUpdates()
