@@ -41,11 +41,11 @@ namespace CarvedRock.Web.Controllers
             return View(new ProductReviewModel {ProductId = productId});
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddReview(ProductReviewInputModel reviewModel)
-        {
-            await _productGraphClient.AddReview(reviewModel);
-            return RedirectToAction("ProductDetail", new {productId = reviewModel.ProductId});
-        }
+        // [HttpPost]
+        // public async Task<IActionResult> AddReview(ProductReviewInputModel reviewModel)
+        // {
+        //     await _productGraphClient.AddReview(reviewModel);
+        //     return RedirectToAction("ProductDetail", new {productId = reviewModel.ProductId});
+        // }
     }
 }

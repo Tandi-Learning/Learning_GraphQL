@@ -19,9 +19,9 @@ namespace CarvedRock.Web.HttpClients
             var httpClient = _httpClientFactory.CreateClient("ProductHttpClient");
 
             var response = await httpClient.GetAsync(@"?query= 
-        { products 
-            { id name price rating photoFileName } 
-        }");
+            { products 
+                { id name price rating photoFileName } 
+            }");
             var stringResult = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<Response<ProductsContainer>>(stringResult);
         }

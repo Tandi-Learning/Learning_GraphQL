@@ -21,9 +21,9 @@ namespace CarvedRock.Api.Repositories
             return _dbContext.Products.ToListAsync();
         }
 
-        public Task<List<Product>> GetById(int id)
+        public Task<Product> GetById(int id)
         {
-            return _dbContext.Products.Where(p => p.Id == id).ToListAsync();
+            return _dbContext.Products.Where(p => p.Id == id).FirstOrDefaultAsync();
         }
     }
 }

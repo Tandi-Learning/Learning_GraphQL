@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/CarvedRock.Api/CarvedRock.Api.csproj"
+                "${workspaceFolder}/CarvedRock.Web/CarvedRock.Web.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -17,7 +17,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/CarvedRock.Api/CarvedRock.Api.csproj"
+                "${workspaceFolder}/CarvedRock.Web/CarvedRock.Web.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -28,7 +28,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/CarvedRock.Api/CarvedRock.Api.csproj"
+                "${workspaceFolder}/CarvedRock.Web/CarvedRock.Web.csproj"
             ],
             "problemMatcher": "$tsc"
         }
