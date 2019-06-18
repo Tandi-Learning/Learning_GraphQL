@@ -47,11 +47,17 @@ namespace CarvedRock.Api
             .AddDataLoader()
             .AddWebSockets()
             .AddGraphTypes(ServiceLifetime.Scoped);
+
+            services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app, CarvedRockDbContext dbContext)
         {
             var graphqlEndpoint = "/graphql";
+
+            app.UseCors(builder => {
+                builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            });
 
             app.UseWebSockets();
             app.UseGraphQLWebSockets<CarvedRockSchema>(graphqlEndpoint);
@@ -69,8 +75,9 @@ namespace CarvedRock.Api
             {
                 Path = "/voyager",
                 GraphQLEndPoint = graphqlEndpoint
-            });
-            dbContext.Seed();
+            });            
+
+            // dbContext.Seed();
         }
     }
 }
