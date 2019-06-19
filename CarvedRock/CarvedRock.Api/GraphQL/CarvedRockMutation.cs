@@ -7,9 +7,9 @@ namespace CarvedRock.Api.GraphQL
 {
     public class CarvedRockMutation : ObjectGraphType
     {
-        public CarvedRockMutation(ProductReviewRepository reviewRepository
-        // , ReviewMessageService messageService
-        )
+        public CarvedRockMutation(
+            ProductReviewRepository reviewRepository,
+            ReviewMessageService messageService)
         {
             FieldAsync<ProductReviewType>(
                 "createReview",
@@ -20,7 +20,7 @@ namespace CarvedRock.Api.GraphQL
                 {
                     var review = context.GetArgument<ProductReview>("review");
                     await reviewRepository.AddReview(review);
-                    // messageService.AddReviewAddedMessage(review);
+                    messageService.AddReviewAddedMessage(review); 
                     return review;
                 });
         }

@@ -51,15 +51,15 @@ namespace CarvedRock.Web.Clients
             return response.GetDataFieldAs<ProductReviewModel>("createReview");
         }
 
-        // public async Task SubscribeToUpdates()
-        // {
-        //     var result = await _client.SendSubscribeAsync("subscription { reviewAdded { title productId } }");
-        //     result.OnReceive += Receive;
-        // }
+        public async Task SubscribeToUpdates()
+        {
+            var result = await _client.SendSubscribeAsync("subscription { reviewAdded { title productId } }");
+            result.OnReceive += Receive;
+        }
 
-        // private void Receive(GraphQLResponse resp)
-        // {
-        //     var review = resp.Data["reviewAdded"];
-        // }
+        private void Receive(GraphQLResponse resp)
+        {
+            var review = resp.Data["reviewAdded"];
+        }
     }
 }
